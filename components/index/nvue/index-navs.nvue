@@ -1,0 +1,27 @@
+<template>
+
+		<div>
+				<!-- 首页图标分类 -->
+			<div class="w-100 row px-2 mb-3">
+				<div class="a-center j-center mt-3 index-nav"  v-for="(item,index) in resdata" :key="index">
+					<image class="index-nav-image" :src="item.src"></image>
+					<text class="font text-muted mt-1">{{item.text}}</text>
+				</div>
+			</div>
+		</div>
+</template>
+
+<script>
+	export default {
+		props:['resdata']
+	}
+</script>
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+	.index-nav{
+		width: 142px;
+	}
+.index-nav-image{
+	width: 60px;height: 60px;
+	}
+</style>

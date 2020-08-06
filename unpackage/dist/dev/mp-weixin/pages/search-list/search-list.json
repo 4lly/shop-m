@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "search-list": "/components/search-list/search-list",
+    "card": "/components/common/card",
+    "uni-drawer": "/components/uni-ui/uni-drawer/uni-drawer",
+    "radio-groups": "/components/common/radio-group"
+  }
+}

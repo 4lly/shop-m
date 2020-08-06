@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "消息详情",
+  "scrollIndicator": "none",
+  "bounce": "none",
+  "usingComponents": {
+    "u-parse": "/components/uni-ui/uParse/src/wxParse"
+  }
+}

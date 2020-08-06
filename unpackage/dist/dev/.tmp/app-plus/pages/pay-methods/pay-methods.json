@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "支付方式",
+  "scrollIndicator": "none",
+  "bounce": "none",
+  "usingComponents": {
+    "price": "/components/common/price",
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item"
+  }
+}

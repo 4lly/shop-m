@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "申请售后",
+  "scrollIndicator": "none",
+  "bounce": "none",
+  "usingComponents": {
+    "divider": "/components/common/divider",
+    "card": "/components/common/card",
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item",
+    "radio-groups": "/components/common/radio-group"
+  }
+}

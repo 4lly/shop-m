@@ -1,0 +1,43 @@
+<template>
+	<view class=" border-bottom border-light-secondary d-flex  a-center py-2" >
+		<image @click.stop="open" src="/static/images/demo/demo6.jpg" style="width: 150rpx;height: 150rpx;" mode="widthFix" class="rounded mx-2 flex-shrink"></image>
+		<view class="flex-1">
+			<view class="d-flex a-center j-center">
+				<view class="font-md text-dark">
+					{{item.title}}
+				</view>
+				<view class="ml-auto font-md text-light-muted">
+					￥{{item.pprice}}
+				</view>
+			</view>
+			<view class="d-flex a-center j-center">
+				<view class="font text-light-muted">
+					{{item.attrs}}
+				</view>
+				<view class="font ml-auto text-light-muted">
+					x{{item.num}}
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+
+		props: {
+			item: Object,
+			index: Number
+		},
+		methods: {
+			open() {
+				uni.navigateTo({
+					url: '/pages/detail/detail'
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+</style>

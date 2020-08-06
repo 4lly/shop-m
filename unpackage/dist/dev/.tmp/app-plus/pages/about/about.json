@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "关于商城",
+  "scrollIndicator": "none",
+  "bounce": "none",
+  "usingComponents": {
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item"
+  }
+}

@@ -1,0 +1,465 @@
+<template>
+	<div>
+		<!-- <div @click="postMessage"><text >nvew 给vue 发送信息</text></div>
+		<div @click="test"><text >Go Test</text></div>
+		<text>{{msg}}</text> -->
+		<index-tabbar :tabbars="tabbars" :tabindex="tabindex" @changeTab="changeTab"></index-tabbar>
+
+		<!-- 横向滚动顶部选项卡 -->
+
+		<!-- 横向滚动列表 -->
+		<slider class="flex-1" :index="tabindex" :infinite="false" @change="onChangeTab">
+			<list :show-scrollbar="false" v-for="(item,index) in newsitems" :key="index">
+				<!-- 下拉刷新 -->
+				<refresh style="height: 80px;" class="flex-row j-center a-center w-100" @refresh="refresh" @pullingdown="pullingdown"
+				 :display="item.refreshShow">
+					<text class="font-md text-light-muted"> {{item.refreshText}}</text>
+				</refresh>
+				<!-- 首页模板 -->
+				<template v-if="tabbars[index].template === 'index'">
+					<cell v-for="(list,listIndex) in item.list" :key="listIndex">
+						<!-- 轮播图组件 -->
+						<index-slider v-if="list.type==='swiper'" :swipers="list.data" />
+						<template v-if="list.type==='indexnavs'">
+							<!-- 首页图标分类 -->
+							<index-navs :resdata="list.data" />
+							<!-- 全局分割线 -->
+							<divider />
+						</template>
+						<template v-if="list.type==='threeAdv'">
+							<!-- 三图广告 -->
+							<three-adv  :resdata="list.data" />
+							<divider />
+						</template>
+						<!-- 大图广告位 -->
+						<one-adv v-if="list.type==='oneAdv'" :resdata="list.data" />
+						<!-- 公共列表组件 -->
+						<div class="row w-100" v-if="list.type==='list'">
+							<block v-for="(item2,index2) in list.data" :key="index2">
+								<common-list :item="item2" :index="index2"></common-list>
+							</block>
+						</div>
+					</cell>
+				</template>
+				<!-- 专题模板 -->
+				<template v-else-if="tabbars[index].template === 'special'">
+					<cell v-for="(list,listIndex) in item.list" :key="listIndex">
+						<!-- 轮播图组件 -->
+						<index-slider v-if="list.type==='swiper'" :swipers="list.data" />
+						<template v-if="list.type==='indexnavs'">
+							<!-- 首页图标分类 -->
+							<index-navs v-if="list.type==='indexnavs'" :resdata="list.data" />
+							<!-- 全局分割线 -->
+							<divider />
+						</template>
+						<!-- 大图广告位 -->
+						<one-adv v-if="list.type==='oneAdv'" :resdata="list.data" />
+						<!-- 公共列表组件 -->
+						<div class="row w-100" v-if="list.type==='list'">
+							<block v-for="(item2,index2) in list.data" :key="index2">
+								<common-list :item="item2" :index="index2"></common-list>
+							</block>
+						</div>
+					</cell>
+				</template>
+
+				<!-- 上拉加载 -->
+				<loading class="w-100 flex-row a-center j-center" @loading="onloading" style="height: 70px;" :display="item.loadingShow">
+					<text class="font-md text-light-muted"> {{item.loadtext}}</text>
+				</loading>
+			</list>
+		</slider>
+
+
+
+	</div>
+</template>
+
+<script>
+	let demoTabBars = [{
+			name: '关注',
+			template: 'index'
+		},
+		{
+			name: '推荐',
+			template: 'special'
+		},
+		{
+			name: '体育',
+			template: 'special'
+		},
+		{
+			name: '热点',
+			template: 'special'
+		},
+		{
+			name: '财经',
+			template: 'special'
+		},
+		{
+			name: '娱乐',
+			template: 'special'
+		},
+		{
+			name: '军事',
+			template: 'special'
+		},
+		{
+			name: '历史',
+			template: 'special'
+		},
+		{
+			name: '本地',
+			template: 'special'
+		}
+	]
+	let demo1 = [{
+			type: 'swiper',
+			data: [{
+					src: '/static/images/demo/demo4.jpg'
+				},
+				{
+					src: '/static/images/demo/demo4.jpg'
+				},
+				{
+					src: '/static/images/demo/demo4.jpg'
+				}
+			]
+		},
+		{
+			type: 'indexnavs',
+			data: [{
+					src: '/static/images/indexnav/1.png',
+					text: '新品发布'
+				},
+				{
+					src: '/static/images/indexnav/2.gif',
+					text: '小米众筹'
+				},
+				{
+					src: '/static/images/indexnav/3.gif',
+					text: '以旧换新'
+				},
+				{
+					src: '/static/images/indexnav/4.gif',
+					text: '一分换团'
+				},
+				{
+					src: '/static/images/indexnav/5.gif',
+					text: '超值特卖'
+				},
+				{
+					src: '/static/images/indexnav/6.gif',
+					text: '小米秒杀'
+				},
+				{
+					src: '/static/images/indexnav/7.gif',
+					text: '真心想要'
+				},
+				{
+					src: '/static/images/indexnav/8.gif',
+					text: '电视热卖'
+				},
+				{
+					src: '/static/images/indexnav/9.gif',
+					text: '家电热卖'
+				},
+				{
+					src: '/static/images/indexnav/10.gif',
+					text: '米粉卡'
+				}
+			]
+		},
+		{
+			type: 'threeAdv',
+			data: {
+				'big': {
+					src: '../../static/images/demo/demo1.jpg'
+				},
+				'smalltop': {
+					src: '../../static/images/demo/demo2.jpg'
+				},
+				'smallbottom': {
+					src: '../../static/images/demo/demo2.jpg'
+				}
+			}
+		},
+		{
+			type: 'oneAdv',
+			data: {
+				title: '每日精选',
+				src: '/static/images/demo/demo4.jpg'
+			}
+		},
+		{
+			type: 'list',
+			data: [{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 2696,
+					pprice: 1996
+				},
+				{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 2696,
+					pprice: 1996
+				}, {
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 2696,
+					pprice: 1996
+				}
+			]
+		}
+	]
+	let demo2 = [{
+			type: 'swiper',
+			data: [{
+					src: '/static/images/demo/demo4.jpg'
+				},
+				{
+					src: '/static/images/demo/demo4.jpg'
+				},
+				{
+					src: '/static/images/demo/demo4.jpg'
+				}
+			]
+		},
+		{
+			type: 'indexnavs',
+			data: [{
+					src: '/static/images/indexnav/1.png',
+					text: '新品发布'
+				},
+				{
+					src: '/static/images/indexnav/2.gif',
+					text: '小米众筹'
+				},
+				{
+					src: '/static/images/indexnav/3.gif',
+					text: '以旧换新'
+				},
+				{
+					src: '/static/images/indexnav/4.gif',
+					text: '一分换团'
+				},
+				{
+					src: '/static/images/indexnav/5.gif',
+					text: '超值特卖'
+				},
+				{
+					src: '/static/images/indexnav/6.gif',
+					text: '小米秒杀'
+				},
+				{
+					src: '/static/images/indexnav/7.gif',
+					text: '真心想要'
+				},
+				{
+					src: '/static/images/indexnav/8.gif',
+					text: '电视热卖'
+				},
+				{
+					src: '/static/images/indexnav/9.gif',
+					text: '家电热卖'
+				},
+				{
+					src: '/static/images/indexnav/10.gif',
+					text: '米粉卡'
+				}
+			]
+		},
+		{
+			type: 'oneAdv',
+			data: {
+				title: '每日精选',
+				src: '/static/images/demo/demo4.jpg'
+			}
+		},
+		{
+			type: 'list',
+			data: [{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 2696,
+					pprice: 1996
+				},
+				{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 2696,
+					pprice: 1996
+				}, {
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 2696,
+					pprice: 1996
+				}
+			]
+		}
+	]
+	import indexSlider from '@/components/index/nvue/index-slider.nvue'
+	import indexNavs from '@/components/index/nvue/index-navs.nvue'
+	import divider from '@/components/common/divider.nvue'
+	import threeAdv from '@/components/index/nvue/three-adv.nvue'
+	import oneAdv from '@/components/index/nvue/one-adv.nvue'
+	import commonList from '../../components/common/common-list.nvue'
+	import indexTabbar from '@/components/index/nvue/index-tabbar.nvue'
+	// 获取当前窗口对象
+	const currentWebview = plus.webview.currentWebview()
+	export default {
+		components: {
+			indexSlider,
+			indexNavs,
+			divider,
+			threeAdv,
+			oneAdv,
+			commonList,
+			indexTabbar
+		},
+		data() {
+			return {
+				msg: '',
+				tabindex: 0,
+				tabbars: [],
+				newsitems: []
+			}
+		},
+		beforeDestroy() {
+			currentWebview.removeEventListener('show', () => {})
+		},
+		created() {
+			// 模拟onshow 监听当前窗口显示
+			currentWebview.addEventListener('show', e => {
+				console.log('indexshow')
+			})
+			// 注册监听导航栏按钮点击事件
+			uni.onNavigationBarButtonTap(e => {
+				console.log(e)
+			})
+			// 注册监听点击搜索框
+			uni.onNavigationBarSearchInputClicked(e => {
+				console.log(e)
+				uni.navigateTo({
+					url:'../search/search'
+				})
+			})
+
+			// 接收vue 传过来的数据
+			const globalEvent = weex.requireModule('globalEvent')
+			globalEvent.addEventListener('plusMessage', e => {
+				console.log('接收vue 传过来的数据')
+				console.log(e)
+				let data = e.data
+				this.msg = data.msg
+			})
+			// 初始化事件
+			this.__init()
+		},
+
+		methods: {
+			// 初始化事件
+			__init() {
+				// 获取顶部选项卡
+				this.tabbars = demoTabBars
+				// 更具顶部选项卡生成页面
+				let arr = []
+				for (let i = 0; i < this.tabbars.length; i++) {
+					let obj = {
+						list: [],
+						// 1.上拉加载更多 2.加载中 3.没有更多了
+						loadtext: '上拉加载更多',
+						refreshShow: 'hide',
+						refreshText: '',
+						loadingShow: 'hide'
+					}
+					// 获取首屏数据
+					if (i === 0) {
+						obj.list = demo1
+					}
+					arr.push(obj)
+				}
+				this.newsitems = arr
+			},
+			// nvue 与vue 之间的通讯
+			postMessage(num) {
+				uni.postMessage({
+					msg: 'hello world',
+					from: 'index'
+				})
+			},
+			test() {
+				uni.navigateTo({
+					url: "../test/test"
+				})
+			},
+			// 切换选项卡
+			changeTab(index) {
+				// if (this.tabindex === index) return
+				this.tabindex = index
+				this.getData()
+			},
+			// 加载数据
+			getData() {
+				// 拿到当前索引
+				let index = this.tabindex
+				// 请求数据
+				this.newsitems[index].list = index === 0 ? demo1 : demo2
+			},
+			// 监听滑动
+			onChangeTab(e) {
+				this.changeTab(e.index)
+			},
+			// 下拉刷新
+			refresh(e) {
+				let item = this.newsitems[this.tabindex]
+				item.refreshShow = 'show'
+				item.refreshText = '正在刷新'
+				setTimeout(() => {
+					item.refreshText = '下拉可以刷新'
+					item.refreshShow = 'hide'
+				}, 1200)
+			},
+			// 判断下拉状态
+			pullingdown(e) {
+				let item = this.newsitems[this.tabindex]
+				item.refreshText = e.pullingDistance > e.viewHeight ? '释放就能刷新了' : '下拉可以刷新'
+
+			},
+			// 上拉加载事件
+			onloading() {
+				// 拿到当前索引
+				// let index = this.tabIndex
+				// 获取当前对象
+				let item = this.newsitems[this.tabindex]
+				// 时候否处于可加载状态
+				if (item.loadtext !== '上拉加载更多') return
+				item.loadingShow = 'show'
+				// 模拟加载
+				item.loadtext = '加载中'
+				setTimeout(() => {
+					item.loadingShow = 'hide'
+					item.list.forEach(el => {
+						if (el.type === 'list') {
+							el.data = [...el.data, ...el.data]
+						}
+					})
+					// item.list = [item.list,...demo2]
+					// 回复状态
+					item.loadtext = '上拉加载更多'
+				}, 2000)
+			}
+		}
+	}
+</script>
+<style src="@/common/zcm-main-nvue.css"></style>
+<style src="@/common/common.css"></style>
+<style>
+</style>

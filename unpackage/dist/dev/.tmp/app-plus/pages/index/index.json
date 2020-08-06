@@ -1,0 +1,40 @@
+{
+  "scrollIndicator": "none",
+  "titleNView": {
+    "searchInput": {
+      "align": "left",
+      "backgroundColor": "#f7f7f7",
+      "borderRadius": "4px",
+      "disabled": true,
+      "placeholder": "智能积木",
+      "placeholderColor": "#cccccc"
+    },
+    "buttons": [
+      {
+        "color": "#999999",
+        "colorPressed": "#bbbbbb",
+        "float": "left",
+        "fontSize": "22px",
+        "fontSrc": "/static/font/iconfont.ttf",
+        "text": ""
+      },
+      {
+        "color": "#999999",
+        "colorPressed": "#bbbbbb",
+        "float": "right",
+        "fontSize": "22px",
+        "fontSrc": "/static/font/iconfont.ttf",
+        "text": ""
+      }
+    ]
+  },
+  "usingComponents": {
+    "divider": "/components/common/divider",
+    "swiper-image": "/components/index/swiper-image",
+    "index-nav": "/components/index/index-nav",
+    "three-adv": "/components/index/three-adv",
+    "card": "/components/common/card",
+    "common-list": "/components/common/common-list",
+    "index-tabbar": "/components/index/index-tabbar"
+  }
+}

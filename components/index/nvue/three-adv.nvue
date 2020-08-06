@@ -1,0 +1,23 @@
+<template>
+	<div>
+		<div class="w-100 row ">
+			<div class="col-6">
+				<image style="width: 373px;height: 530px;" :src="resdata.big.src"></image>
+			</div>
+			<div class="col-6 j-sb">
+				<image style="width: 375px;height: 264px;margin-bottom: 2px;" :src="resdata.smalltop.src"></image>
+				<image style="width: 375px;height: 264px;" :src="resdata.smallbottom.src"></image>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		props:['resdata']
+	}
+</script>
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+
+</style>

@@ -1,0 +1,2 @@
+setCssToHead(["body { background-color: #f5f5f5; }\n",],undefined,{path:"./pages/cart/cart.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/cart/cart.wxml') } }));

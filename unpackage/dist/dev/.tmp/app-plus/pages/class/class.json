@@ -1,0 +1,27 @@
+{
+  "scrollIndicator": "none",
+  "bounce": "none",
+  "titleNView": {
+    "searchInput": {
+      "align": "left",
+      "backgroundColor": "#f7f7f7",
+      "borderRadius": "4px",
+      "disabled": true,
+      "placeholder": "智能积木",
+      "placeholderColor": "#cccccc"
+    },
+    "buttons": [
+      {
+        "color": "#999999",
+        "colorPressed": "#bbbbbb",
+        "float": "right",
+        "fontSize": "22px",
+        "fontSrc": "/static/font/iconfont.ttf",
+        "text": ""
+      }
+    ]
+  },
+  "usingComponents": {
+    "loading": "/common/mixin/loading-plus"
+  }
+}

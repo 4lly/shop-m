@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "优惠券",
+  "scrollIndicator": "none",
+  "bounce": "none",
+  "usingComponents": {
+    "no-thing": "/components/common/no-thing",
+    "coupon": "/components/order-coupon/coupon"
+  }
+}

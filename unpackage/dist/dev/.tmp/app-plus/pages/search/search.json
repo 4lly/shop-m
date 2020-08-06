@@ -1,0 +1,29 @@
+{
+  "scrollIndicator": "none",
+  "titleNView": {
+    "searchInput": {
+      "align": "left",
+      "backgroundColor": "#f7f7f7",
+      "borderRadius": "4px",
+      "disabled": false,
+      "placeholder": "智能积木",
+      "placeholderColor": "#cccccc",
+      "autoFocus": true
+    },
+    "buttons": [
+      {
+        "color": "#999999",
+        "colorPressed": "#bbbbbb",
+        "float": "right",
+        "fontSize": "16px",
+        "text": "搜索"
+      }
+    ]
+  },
+  "usingComponents": {
+    "divider": "/components/common/divider",
+    "card": "/components/common/card",
+    "color-tag": "/components/search/color-tag",
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item"
+  }
+}
